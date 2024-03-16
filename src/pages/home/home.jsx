@@ -1,7 +1,7 @@
-// Home.jsx
 import React from 'react';
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 
 const auth = getAuth();
 
@@ -21,9 +21,18 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Welcome to the Home Page</h1>
-      {/* Add any additional content for the home page */}
-      <button onClick={handleLogout}>Logout</button>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            My App
+          </Typography>
+          <Button color="inherit" onClick={handleLogout}>Logout</Button>
+        </Toolbar>
+      </AppBar>
+      <div>
+        <h1>Welcome to the Home Page</h1>
+        {/* Add any additional content for the home page */}
+      </div>
     </div>
   );
 }

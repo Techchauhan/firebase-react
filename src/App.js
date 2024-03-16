@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from "./pages/login";
 import Home from "./pages/home/home";
+import UserList from './pages/details/userList';
+import UserDetails from './pages/details/userDetails'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "./firebase";
 
@@ -29,6 +31,9 @@ function App() {
         {/* Use Navigate for conditional rendering and redirection */}
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+        <Route path="/user-list" element={<UserList /> } />
+        <Route path="/user-details" element={<UserDetails /> } />
+
       </Routes>
     </BrowserRouter>
   );
