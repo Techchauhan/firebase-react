@@ -1,7 +1,6 @@
-// Login.jsx
 import React, { useState, useEffect } from 'react';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { app } from "../firebase";
 import "./login.css"; // Import CSS file for styling
 import lottie from 'lottie-web'; // Import lottie-web
@@ -11,6 +10,21 @@ const auth = getAuth(app);
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(null);
+  const navigate = useNavigate(); // Get navigate function
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is already logged in, navigate to home page
+        navigate("/");
+      }
+    });
+
+    // Clean up the subscription when the component unmounts
+    return () => unsubscribe();
+  }, [navigate]);
 
   useEffect(() => {
     // Load the Lottie animation
@@ -34,10 +48,10 @@ export default function Login() {
         console.log("User logged in:", userCredential.user.email);
         alert("Login successful!");
         // Redirect to the home page after successful login
-        // You can handle redirection using react-router-dom
+        navigate("/"); // Navigate to the home page
       })
       .catch((error) => {
-        alert(error.message); // Display error message to the user
+        setLoginError(error.message); // Set login error message
       });
   }
 
@@ -48,12 +62,6 @@ export default function Login() {
       
       {/* Right side container for login form */}
       <div className="login-container">
-
-
-      {/* <div className="avatar-container">
-          <img src="../images/pulsezest.png" alt="Avatar" className="avatar" />
-        </div> */}
-
 
         <h1>PulseZest Admin Login</h1>
         <label htmlFor="email">Email</label>
@@ -75,6 +83,7 @@ export default function Login() {
           required
         />
         <button onClick={loginUser}>Login</button>
+        {loginError && <p className="error-message">{loginError}</p>}
         <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
       </div>
     </div>

@@ -11,29 +11,35 @@ const auth = getAuth(app);
 
 function App() {
   const [user, setUser] = useState(null);
-  
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        console.log("User logged out");
-        setUser(null);
-      }
+      setUser(user);
+      setIsLoading(false); // Update loading state once authentication state is determined
     });
 
     return () => unsubscribe(); // Unsubscribe from the auth state listener when component unmounts
   }, []);
 
+  // Show loading indicator while checking authentication state
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        {/* Use Navigate for conditional rendering and redirection */}
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
-        <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
-        <Route path="/user-list" element={<UserList /> } />
-        <Route path="/user-details" element={<UserDetails /> } />
-
+        <Route
+          path="/user-list"
+          element={user ? <UserList /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/user-details"
+          element={user ? <UserDetails /> : <Navigate to="/login" />}
+        />
       </Routes>
     </BrowserRouter>
   );
