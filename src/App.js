@@ -4,6 +4,8 @@ import Login from "./pages/login";
 import Home from "./pages/home/home";
 import UserList from './pages/details/userList';
 import UserDetails from './pages/details/userDetails'
+import Form from "./pages/form/form"
+import SeprateForm from "./pages/form/seprate-form"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "./firebase";
 
@@ -36,6 +38,16 @@ function App() {
           path="/user-list"
           element={user ? <UserList /> : <Navigate to="/login" />}
         />
+
+        <Route
+          path="/form"
+          element={user ? <Form /> : <Navigate to="/login" />}
+        />  
+
+        <Route
+          path="/seprate-form"
+          element={user ? <SeprateForm /> : <Navigate to="/login" />}
+        />  
         <Route
           path="/user-details"
           element={user ? <UserDetails /> : <Navigate to="/login" />}

@@ -1,11 +1,5 @@
 /* Login.css */
-body {
-  background-color: rgb(90, 93, 227);  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
+ 
 
 .login-page {
   display: flex;
