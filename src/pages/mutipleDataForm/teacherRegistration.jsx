@@ -8,6 +8,8 @@ export default function TeacherRegistration() {
     name: '',
     email: '',
     number: '',
+    dob: '',
+    gender: '',
     // Add other fields here
   });
 
@@ -30,6 +32,8 @@ export default function TeacherRegistration() {
         name: '',
         email: '',
         number: '',
+        dob: '',
+        gender: '',
         // Clear other fields here
       });
       toast.success('Data saved successfully!');
@@ -75,6 +79,35 @@ export default function TeacherRegistration() {
           required
         />
       </div>
+
+      <div>
+        <label htmlFor="dob">Date of Birth:</label>
+        <input
+          type="date"
+          id="dob"
+          name="dob"
+          value={userData.dob}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="gender">Gender:</label>
+        <select
+          id="gender"
+          name="gender"
+          value={userData.gender}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
       {/* Add other fields similarly */}
       <button type="submit">Submit</button>
     </form>
