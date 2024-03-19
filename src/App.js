@@ -7,6 +7,7 @@ import UserDetails from './pages/details/userDetails'
 import Form from "./pages/form/form"
 import SeprateForm from "./pages/form/seprate-form"
 import TeacherRegistration from './pages/mutipleDataForm/teacherRegistration';
+import AdmissionForm from './pages/admissionForm/admissionForm';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "./firebase";
 
@@ -58,6 +59,10 @@ function App() {
         <Route
           path="/user-details"
           element={user ? <UserDetails /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/admission-form"
+          element={user ? <AdmissionForm/> : <Navigate to="/login" />}
         />
         
       </Routes>
