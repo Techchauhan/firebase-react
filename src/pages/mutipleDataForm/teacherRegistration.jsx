@@ -106,7 +106,9 @@ export default function TeacherRegistration() {
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
+
       </div>
+
 
       {/* Add other fields similarly */}
       <button type="submit">Submit</button>

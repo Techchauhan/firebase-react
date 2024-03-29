@@ -7,6 +7,7 @@ export default function UserForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
+//   Save the data randomly 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
